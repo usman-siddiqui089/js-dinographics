@@ -74,6 +74,8 @@
         }
     ]
 
+    //console.log(dinosaurs_arr[0].fact)
+
     //locators and variables
     let name_inp = document.getElementById('name');
     let feet_inp = document.getElementById('feet');
@@ -85,6 +87,7 @@
     const grid = document.getElementById("grid");
     let dino_img_arr = ['./images/triceratops.png','./images/tyrannosaurus-rex.png','./images/anklyosaurus.png','./images/brachiosaurus.png','./images/human.png','./images/stegosaurus.png','./images/elasmosaurus.png','./images/pteranodon.png','./images/pigeon.png'];
     let species_arr = [];
+    let facts_arr = [];
 
     // Create Dino Constructor
     function Dino(species,weight,height,diet,where,when,fact){
@@ -127,7 +130,12 @@
                 diet: diet_inp.value
             }
             species_arr.splice(4,0,human);
-            console.log(species_arr[0].fact[0]);
+            let fact_result = compareWeight(species_arr[4],species_arr[0]);
+            let height_result = compareHeight(species_arr[4],species_arr[0]);
+            let diet_result = compareDiet(species_arr[4],species_arr[0]);
+            console.log(fact_result);
+            console.log(height_result);
+            console.log(diet_result);
             hideFormOnClick();
         }
     })());
@@ -135,22 +143,82 @@
     // Create Dino Compare Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
     function compareWeight(obj1,obj2){
-        let weight_diff;
-        if(obj2.weight > obj1.weight){
-            weight_diff = obj2.weight - obj1.weight;
+        const human_weight = parseInt(obj1.weight);
+        const dino_weight = parseInt(obj2.weight);
+        let weight_ratio = 0;
+        let whoIsHeavy = 0;
+        if(dino_weight > human_weight){
+            weight_ratio = (dino_weight / human_weight).toFixed(2);
+            whoIsHeavy = dino_weight;
+        }
+        else if(dino_weight < human_weight){
+            weight_ratio = (human_weight / dino_weight).toFixed(2);
+            whoIsHeavy = human_weight;
+        }
+        else{
+            weight_ratio = 1;
+        }
+
+        if(whoIsHeavy == dino_weight){
+            return `${obj2.species} is ${weight_ratio} times heavier than you.`;
+        }
+        else if(whoIsHeavy == human_weight){
+            return `${obj1.species} is ${weight_ratio} times heavier than ${obj2.species}.`;
+        }
+        else if(weight_ratio == 1){
+            return `${obj2.species} weighs equal to you.`
+        }
+        else{
+            return 'Please try again, you entered incorrect weight value';
         }
     } 
 
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
     function compareHeight(obj1,obj2){
+        const human_height_feet = parseInt(obj1.height.feet*12);
+        const human_height_inches = parseInt(obj1.height.inches);
+        const human_height = human_height_feet + human_height_inches;
+        const dino_height = parseInt(obj2.height);
+        let height_ratio = 0;
+        let whoIsTaller = 0;
+        if(dino_height > human_height){
+            height_ratio = (dino_height / human_height).toFixed(2);
+            whoIsTaller = dino_height;
+        } 
+        else if(dino_height < human_height){
+            height_ratio = (human_height / dino_height).toFixed(2);
+            whoIsTaller = human_height;
+        } 
+        else{
+            height_ratio = 1;
+        }
 
+        if(whoIsTaller == dino_height){
+            return `${obj2.species} is ${height_ratio} times taller than you.`;
+        }
+        else if(whoIsTaller == human_height){
+            return `${obj1.species} is ${height_ratio} times taller than ${obj2.species}`;
+        }
+        else if(height_ratio == 1){
+            return `${obj2.species} is equal to you in height.`;
+        }
+        else{
+            return 'Please try again, you entered incorrect height value';
+        }
     }
     
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
     function compareDiet(obj1,obj2){
-
+        const human_diet = (obj1.diet).toLowerCase();
+        const dino_diet = (obj2.diet);
+        if(dino_diet === human_diet){
+            return `You and ${obj2.species} are both ${dino_diet}s`;
+        }
+        else{
+            return `You are ${human_diet} whereas ${obj2.species} is ${dino_diet}`;
+        }
     }
 
     // Generate Tiles for each Dino in Array
