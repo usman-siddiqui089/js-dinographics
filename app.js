@@ -43,7 +43,7 @@
             "diet": "herbivore",
             "where": "North America, Europe, Asia",
             "when": "Late Jurasic to Early Cretaceous",
-            "fact": ['The Stegosaurus had between 17 and 22 seperate places and flat spines.','The size of their brain was only around the size of a dog’s.','The name ‘Stegosaurus’ comes from the Greek words ‘stegos’ meaning roof and ‘sauros’ meaning lizard.']
+            "fact": ['The Stegosaurus had between 17 and 22 seperate places and flat spines.','The size of a Stegosaurus brain was only around the size of a dog’s.','The name ‘Stegosaurus’ comes from the Greek words ‘stegos’ meaning roof and ‘sauros’ meaning lizard.']
         },
         {
             "species": "Elasmosaurus",
@@ -52,7 +52,7 @@
             "diet": "carnivore",
             "where": "North America",
             "when": "Late Cretaceous",
-            "fact": ['Elasmosaurus was a marine reptile first discovered in Kansas.','The meaning of its name is Thin Plated Lizard.','Elasmosaurus was very slow swimmer.']
+            "fact": ['Elasmosaurus was a marine reptile first discovered in Kansas.','The meaning of Elasmosaurus is Thin Plated Lizard.','Elasmosaurus was very slow swimmer.']
         },
         {
             "species": "Pteranodon",
@@ -74,8 +74,6 @@
         }
     ]
 
-    //console.log(dinosaurs_arr[0].fact)
-
     //locators and variables
     let name_inp = document.getElementById('name');
     let feet_inp = document.getElementById('feet');
@@ -90,19 +88,18 @@
     let facts_arr = [];
 
     // Create Dino Constructor
-    function Dino(species,weight,height,diet,where,when,fact){
+    function Dino(species,weight,height,diet,where,when){
         this.species = species;
         this.weight = weight;
         this.height = height;
         this.diet = diet;
         this.where = where;
         this.when = when;
-        this.fact = fact;
     }
 
     // Create Dino Objects
     for(let i=0; i<8; i++){
-        species_arr[i] = new Dino(`${dinosaurs_arr[i].species}`,`${dinosaurs_arr[i].weight}`,`${dinosaurs_arr[i].height}`,`${dinosaurs_arr[i].diet}`,`${dinosaurs_arr[i].where}`,`${dinosaurs_arr[i].when}`,`${dinosaurs_arr[i].fact}`)
+        species_arr[i] = new Dino(`${dinosaurs_arr[i].species}`,`${dinosaurs_arr[i].weight}`,`${dinosaurs_arr[i].height}`,`${dinosaurs_arr[i].diet}`,`${dinosaurs_arr[i].where}`,`${dinosaurs_arr[i].when}`)
     }
 
     // Create Human Object
@@ -130,12 +127,7 @@
                 diet: diet_inp.value
             }
             species_arr.splice(4,0,human);
-            let fact_result = compareWeight(species_arr[4],species_arr[0]);
-            let height_result = compareHeight(species_arr[4],species_arr[0]);
-            let diet_result = compareDiet(species_arr[4],species_arr[0]);
-            console.log(fact_result);
-            console.log(height_result);
-            console.log(diet_result);
+            factsGenerator(species_arr);
             hideFormOnClick();
         }
     })());
@@ -235,7 +227,8 @@
             img.className = 'grid-img';
             img.src = `${dino_img_arr[i]}`;
             if(species_arr[i].fact!=null){
-                p_text = document.createTextNode(`${species_arr[i].fact}`);
+                let rand_facts = Math.floor(Math.random()*species_arr[i].fact.length); //Generate random number for facts array
+                p_text = document.createTextNode(`${species_arr[i].fact[rand_facts]}`);
             }
             title_text = document.createTextNode(`${species_arr[i].species}`);
             //Append Dinos data with html elements
@@ -262,4 +255,33 @@
     function displayGrid(){
         generateTiles();
         grid.style.display = "flex";
+    }
+
+    function factsGenerator(arr){
+        let weight_fact = '';
+        let height_fact = '';
+        let diet_fact = '';
+        for(let i=0; i<arr.length; i++){
+            if(i==4){
+                continue;
+            }
+            else if(i==arr.length-1){
+                arr[i].fact = dinosaurs_arr[i-1].fact;
+            }
+            else{
+                //arr[i].fact = [];
+                weight_fact = compareWeight(arr[4],arr[i]);
+                height_fact = compareHeight(arr[4],arr[i]);
+                diet_fact = compareDiet(arr[4],arr[i]);
+                if(i>=5){
+                    arr[i].fact = dinosaurs_arr[i-1].fact;
+                }
+                else{
+                    arr[i].fact = dinosaurs_arr[i].fact;
+                }
+                arr[i].fact.push(weight_fact);
+                arr[i].fact.push(height_fact);
+                arr[i].fact.push(diet_fact);
+            }
+        }
     }
