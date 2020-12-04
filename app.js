@@ -19,7 +19,7 @@
             "fact": ['The largest known skull measures in at 5 feet long.','Tyrannosaurus rex is often abbreviated to T-Rex.','The skull of a Tyrannosaurus rex alone measured up to 1.5m (5ft) long.']
         },
         {
-            "species": "Anklyosaurus",
+            "species": "Ankylosaurus",
             "weight": 10500,
             "height": 55,
             "diet": "herbivore",
