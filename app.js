@@ -25,7 +25,7 @@
             "diet": "herbivore",
             "where": "North America",
             "when": "Late Cretaceous",
-            "fact": ['Anklyosaurus survived for approximately 135 million years.','The name Ankylosaurus means fused lizard.','Ankylosaurus were herbivores (plant eaters) and had small teeth relative to their body size.']
+            "fact": ['Ankylosaurus survived for approximately 135 million years.','The name Ankylosaurus means fused lizard.','Ankylosaurus were herbivores (plant eaters) and had small teeth relative to their body size.']
         },
         {
             "species": "Brachiosaurus",
