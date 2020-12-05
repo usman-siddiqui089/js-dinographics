@@ -1,0 +1,26 @@
+{
+  "name": "js-dinographics",
+  "version": "1.0.0",
+  "description": "This repository is for tracking the progress on Dinosaurs project from JS Nanodegree",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usman-siddiqui089/js-dinographics.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usman-siddiqui089/js-dinographics/issues"
+  },
+  "homepage": "https://github.com/usman-siddiqui089/js-dinographics#readme",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}
