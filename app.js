@@ -82,10 +82,10 @@
     let diet_inp = document.getElementById('diet');
     let form_btn = document.getElementById('btn');
     let form = document.getElementById("dino-compare");
+    let compare_again_btn = document.getElementById('compare-again-btn');
     const grid = document.getElementById("grid");
     let dino_img_arr = ['./images/triceratops.png','./images/tyrannosaurus-rex.png','./images/anklyosaurus.png','./images/brachiosaurus.png','./images/human.png','./images/stegosaurus.png','./images/elasmosaurus.png','./images/pteranodon.png','./images/pigeon.png'];
     let species_arr = [];
-    let facts_arr = [];
 
     // Create Dino Constructor
     function Dino(species,weight,height,diet,where,when){
@@ -97,7 +97,7 @@
         this.when = when;
     }
 
-    // Create Dino Objects
+    // Create Dino Objects and Store in Species Array
     for(let i=0; i<8; i++){
         species_arr[i] = new Dino(`${dinosaurs_arr[i].species}`,`${dinosaurs_arr[i].weight}`,`${dinosaurs_arr[i].height}`,`${dinosaurs_arr[i].diet}`,`${dinosaurs_arr[i].where}`,`${dinosaurs_arr[i].when}`)
     }
@@ -255,6 +255,7 @@
     function displayGrid(){
         generateTiles();
         grid.style.display = "flex";
+        compare_again_btn.style.display = "block";
     }
 
     function factsGenerator(arr){
