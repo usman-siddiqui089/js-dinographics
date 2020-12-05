@@ -61,7 +61,7 @@
             "diet": "carnivore",
             "where": "North America",
             "when": "Late Cretaceous",
-            "fact": ['Actually a flying reptile, the Pteranodon is not a dinosaur.','The wingspan of the pteranodon was thought to be 25 to 33 feet across.','It had a toothless beak, like most birds of today.']
+            "fact": ['Actually a flying reptile, the Pteranodon is not a dinosaur.','The wingspan of the pteranodon was thought to be 25 to 33 feet across.','Pteranodon had a toothless beak, like most birds of today.']
         },
         {
             "species": "Pigeon",
@@ -83,6 +83,7 @@
     let form_btn = document.getElementById('btn');
     let form = document.getElementById("dino-compare");
     let compare_again_btn = document.getElementById('compare-again-btn');
+    let error_alert = document.getElementById('err-alert')
     const grid = document.getElementById("grid");
     let dino_img_arr = ['./images/triceratops.png','./images/tyrannosaurus-rex.png','./images/anklyosaurus.png','./images/brachiosaurus.png','./images/human.png','./images/stegosaurus.png','./images/elasmosaurus.png','./images/pteranodon.png','./images/pigeon.png'];
     let species_arr = [];
@@ -117,18 +118,25 @@
     form_btn.addEventListener('click',(function fetchHumanDataFromHtmlForm(){
         //Fetch human data from html form here
         return function(){
-            human = {
-                species: name_inp.value,
-                height: {
-                    feet: feet_inp.value,
-                    inches: inches_inp.value
-                },
-                weight: weight_inp.value,
-                diet: diet_inp.value
+            let error_result = formValidation(name_inp.value,feet_inp.value,inches_inp.value,weight_inp.value).toString();
+            if(error_result != ""){
+                error_alert.innerHTML = error_result;
+                error_alert.style.display = 'block';
             }
-            species_arr.splice(4,0,human);
-            factsGenerator(species_arr);
-            hideFormOnClick();
+            else{
+                human = {
+                    species: name_inp.value,
+                    height: {
+                        feet: feet_inp.value,
+                        inches: inches_inp.value
+                    },
+                    weight: weight_inp.value,
+                    diet: diet_inp.value
+                }
+                species_arr.splice(4,0,human);
+                factsGenerator(species_arr);
+                hideFormOnClick();
+            }
         }
     })());
 
@@ -258,6 +266,7 @@
         compare_again_btn.style.display = "block";
     }
 
+    //Generate facts and store in Dino objects
     function factsGenerator(arr){
         let weight_fact = '';
         let height_fact = '';
@@ -285,4 +294,23 @@
                 arr[i].fact.push(diet_fact);
             }
         }
+    }
+
+    //Form Validation
+    function formValidation(name,feet,inches,weight){
+        let err_text;
+        name = name.toString();
+        if(name=="" || feet=="" || inches=="" || weight==""){
+            err_text = "Error! Please fill the form completely.";
+        }
+        else{
+            if(isNaN(feet) || isNaN(inches) || isNaN(weight) || feet < 1 || inches < 1 || weight < 1){
+                err_text = 'Error! You entered invalid numeric value for Height or Weight. Please try again.';
+            }
+            else{
+                err_text = '';
+            }
+        }
+
+        return err_text;
     }

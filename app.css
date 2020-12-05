@@ -187,4 +187,10 @@ select {
 .compare-again-btn:hover {
     background-color: #555555;
     color: white;
-  }
+}
+
+.error-alert{
+    color: red;
+    text-align: center;
+    display: none;
+}
